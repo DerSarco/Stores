@@ -59,4 +59,31 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     override fun onClick(storeEntity: StoreEntity) {
 
     }
+
+//    hacemos el override respectivo de la función que se encuentra en la interfaz,
+//    usando Anko en este caso (Anko esta deprecado) definimos que sucedera con el estado
+//    de favorito.
+    override fun onFavoriteStore(storeEntity: StoreEntity) {
+        storeEntity.isFavorite = !storeEntity.isFavorite
+//    función asincrona que se encarga de actualizar el dato en BD
+        doAsync {
+            StoreApplication.database.storeDao().updateStore(storeEntity)
+            uiThread{
+//                actualizamos la vista avisando que un dato fue actualizado.
+                mAdapter.update(storeEntity)
+            }
+        }
+    }
+
+//    función para eliminar la tienda
+    override fun onDeleteStore(storeEntity: StoreEntity) {
+//    con Anko usamor el async para llamar a la bd y eliminar el objeto.
+        doAsync {
+            StoreApplication.database.storeDao().deleteStore(storeEntity)
+            uiThread {
+//                actualizamos la vista una vez el objeto haya sido eliminado.
+                mAdapter.delete(storeEntity)
+            }
+        }
+    }
 }

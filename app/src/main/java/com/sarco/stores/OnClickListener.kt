@@ -4,4 +4,8 @@ package com.sarco.stores
 interface OnClickListener {
 
     fun onClick(storeEntity: StoreEntity)
+// nueva función que se encargara de manejar el cambio de estado de favoritos.
+    fun onFavoriteStore(storeEntity: StoreEntity)
+//    función de interfaz para eliminar una entrada
+    fun onDeleteStore(storeEntity: StoreEntity)
 }

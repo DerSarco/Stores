@@ -45,6 +45,7 @@ dependencies {
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
 
     implementation "androidx.room:room-runtime:$room_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "androidx.room:room-compiler:$room_version"
 
     testImplementation 'junit:junit:4.+'

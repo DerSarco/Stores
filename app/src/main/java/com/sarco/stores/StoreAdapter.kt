@@ -28,10 +28,9 @@ class StoreAdapter(private var stores: MutableList<StoreEntity>, private var lis
 //    vista nos referenciamos
         mContext = parent.context
 //inflamos la vista donde esta el item_store para luego entregarla a nuestro ViewHolder
-        val view = LayoutInflater.from(mContext).inflate(R.layout.item_store, parent, false);
+        val view = LayoutInflater.from(mContext).inflate(R.layout.item_store, parent, false)
 
         return ViewHolder(view)
-        TODO("Not yet implemented")
     }
 
 //    esta función se encarga de bindear los datos en el item, hace una secuencia y dependiendo
@@ -46,6 +45,7 @@ class StoreAdapter(private var stores: MutableList<StoreEntity>, private var lis
             setListener(store)
 //            bindeamos el nombre de la tienda en el elemento de texto.
             binding.tvName.text = store.name
+            binding.cbFavorite.isChecked = store.isFavorite
         }
     }
 
@@ -59,21 +59,57 @@ class StoreAdapter(private var stores: MutableList<StoreEntity>, private var lis
         notifyDataSetChanged()
     }
 
+//    Actualizamos la posición del listado
+    fun update(storeEntity: StoreEntity) {
+//    buscamos la posición del objeto dentro del listado
+        val index = stores.indexOf(storeEntity)
+//    si es distinto de -1 lo encontró
+        if(index != -1){
+//            actualizamos la posición del listado
+            stores[index] = storeEntity
+//            notificamos que un item fue cambiado para que se actualice.
+            notifyItemChanged(index)
+        }
+    }
+
+    //    Actualizamos la posición del listado
+    fun delete(storeEntity: StoreEntity) {
+//    buscamos la posición del objeto dentro del listado
+        val index = stores.indexOf(storeEntity)
+//    si es distinto de -1 lo encontró
+        if(index != -1){
+//            removemos el objeto de la posición
+            stores.removeAt(index)
+//            notificamos que un item fue eliminado para que se actualice.
+            notifyItemRemoved(index)
+        }
+    }
+
 //    seteamos la lista a la lista mutable genertal
     fun setStores(stores: MutableList<StoreEntity>) {
         this.stores = stores
         notifyDataSetChanged()
-
     }
 
-//    esta clase interna define el ViewHolder para utilizarlo dentro de esta misma,
+    //    esta clase interna define el ViewHolder para utilizarlo dentro de esta misma,
 //    obtenemos los elementos de la vista para ser utilizados mas arriba.
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
 //    obtenemos el binding, osea los elementos de esta vista
         val binding = ItemStoreBinding.bind(view)
-//        función que se setea en cada elemento de la lista, se ejecuta como onClick
+
         fun setListener(storeEntity: StoreEntity){
-            binding.root.setOnClickListener { listener.onClick(storeEntity) }
+            with(binding.root, {
+//        función que se setea en cada elemento de la lista, se ejecuta como onClick
+                setOnClickListener { listener.onClick(storeEntity) }
+                setOnLongClickListener {
+                    listener.onDeleteStore(storeEntity)
+                    true
+                }
+            })
+
+//          bindeamos la función de favoritos al checkbox pasandole la store como parametro.
+            binding.cbFavorite.setOnClickListener { listener.onFavoriteStore(storeEntity) }
+
         }
     }
 }
