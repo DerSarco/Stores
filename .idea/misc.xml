@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/Users/carlo/AndroidStudioProjects/KotlinPractical/Stores/app/src/main/res/drawable/states_cb.xml" value="0.38385416666666666" />
         <entry key="..\:/Users/carlo/AndroidStudioProjects/KotlinPractical/Stores/app/src/main/res/layout/activity_main.xml" value="0.36770833333333336" />
+        <entry key="..\:/Users/carlo/AndroidStudioProjects/KotlinPractical/Stores/app/src/main/res/layout/fragment_edit_store.xml" value="0.20625" />
         <entry key="..\:/Users/carlo/AndroidStudioProjects/KotlinPractical/Stores/app/src/main/res/layout/item_store.xml" value="0.36770833333333336" />
+        <entry key="..\:/Users/carlo/AndroidStudioProjects/KotlinPractical/Stores/app/src/main/res/menu/menu_save.xml" value="0.36770833333333336" />
       </map>
     </option>
   </component>

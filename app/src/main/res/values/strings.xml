@@ -4,4 +4,12 @@
     <string name="description_store_add">Boton para agregar tienda</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_name">Nombre de la tienda</string>
+    <string name="helper_required">Requerido</string>
+    <string name="hint_phone">Telefono</string>
+    <string name="hint_website">URL del sitio web</string>
+    <string name="hint_photoUrl">URL de la imagen</string>
+    <string name="edit_store_title_add">Crear Tienda</string>
+    <string name="menu_save">Save</string>
+    <string name="edit_store_message_success">Tienda Agregada correctamente!</string>
 </resources>
