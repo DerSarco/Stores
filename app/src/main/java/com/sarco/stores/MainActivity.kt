@@ -34,10 +34,15 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
 //llamada a función para bindeo de datos en la aplicación
         setupRecyclerView()
     }
-
-    private fun launchEditFragment() {
+//le definimos un nuevo parametro de tipo bundle, args, se inicializa en nulo por que puede
+//    que no se ejecute desde el item del recycler view.
+    private fun launchEditFragment(args: Bundle? = null) {
 //        instanciamos una nueva clase del fragmento creado para poder llamarlo
         val fragment = EditStoreFragment()
+
+
+//        si los argumentos vienen completados, se los entregamos al fragmento,
+        if(args != null) fragment.arguments = args
 //        para manejar el fragmento, necesitamos al fragmentManager e iniciar su transaccion
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -84,8 +89,17 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
     /*
     * OnClickListener
     * */
-    override fun onClick(storeEntity: StoreEntity) {
 
+//    en el evento on click del item, definimos lo que se hará al momento de pinchar sobre
+//    una tiennda
+    override fun onClick(storeId: Long) {
+//    se declara una constante de tipo bundle
+        val args = Bundle()
+//    dentro de la misma hacemos un put del dato, en este caso un Long, se define una clave
+//    y su valor
+        args.putLong(getString(R.string.arg_id), storeId)
+//      llamamos al launcher del fragment entregando los argumentos
+        launchEditFragment(args)
     }
 
 //    hacemos el override respectivo de la función que se encuentra en la interfaz,

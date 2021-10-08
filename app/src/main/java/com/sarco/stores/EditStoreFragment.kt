@@ -33,6 +33,16 @@ class EditStoreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+//      verificamos si los argumentos vienen definidos, como puede que sean nulos se compelta con ?
+        val id = arguments?.getLong(getString(R.string.arg_id), 0)
+
+        if(id != null && id != 0L){
+            Toast.makeText(activity, id.toString(), Toast.LENGTH_SHORT).show()
+        } else{
+            Toast.makeText(activity, id.toString(), Toast.LENGTH_SHORT).show()
+
+        }
 //        una vez que en el ciclo de vida del fragmento, este es creado, instanciamos la
 //        MainActivity dentro de la variable mActivity, definiendo que puede que sea nula con ?
         mActivity = activity as? MainActivity

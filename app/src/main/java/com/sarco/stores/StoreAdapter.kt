@@ -111,7 +111,9 @@ class StoreAdapter(private var stores: MutableList<StoreEntity>, private var lis
         fun setListener(storeEntity: StoreEntity){
             with(binding.root, {
 //        función que se setea en cada elemento de la lista, se ejecuta como onClick
-                setOnClickListener { listener.onClick(storeEntity) }
+//        dado que modificamos la interfaz, debemos entregar solo el parametro
+//        que nos interesa, en este caso el ID
+                setOnClickListener { listener.onClick(storeEntity.id) }
                 setOnLongClickListener {
                     listener.onDeleteStore(storeEntity)
                     true
