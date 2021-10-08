@@ -26,39 +26,50 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
 //            }.start()
 //            mAdapter.add(store)
 //        }
-
+//      función que se encarga de levantar el fragment al momento de dar click en nuestro
+//        floating action button.
         mBinding.fab.setOnClickListener {
             launchEditFragment()
         }
-
+//llamada a función para bindeo de datos en la aplicación
         setupRecyclerView()
     }
 
     private fun launchEditFragment() {
+//        instanciamos una nueva clase del fragmento creado para poder llamarlo
         val fragment = EditStoreFragment()
-
+//        para manejar el fragmento, necesitamos al fragmentManager e iniciar su transaccion
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-
+//        definimos donde queremos que se muestre nuestro fragmento, en este caso, definimos
+//        un id para el constraint layout del mainactivity.
         fragmentTransaction.add(R.id.containerMain, fragment)
+//        con esta función le decimos a nuestra app que al apretar el boton para volver,
+//        vuelva a la pantalla anterior.
         fragmentTransaction.addToBackStack(null)
+//        con commit levantamos el fragmento en la vista definida
         fragmentTransaction.commit()
 
         hideFab();
     }
 
+//
     private fun setupRecyclerView() {
+//    inicializamos el adaptador, este adaptador solicita el listado de elementos y el listener
         mAdapter = StoreAdapter(mutableListOf(), this)
+//    grid layout se encarga de manejar los elementos del recyclerview, para este caso, se uso
+//    un grid de 2 columnas
         mGridLayout = GridLayoutManager(this, 2)
+//    obtenemos las tiendas que estan almacenadas en nuestra base de datos de room
         getStores()
-
+//    seteamos nuestro recyclerView con los parametros instanciados arriba
         mBinding.recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = mGridLayout
             adapter = mAdapter
         }
     }
-
+//función que trae la información desde la base de datos de Room
     private fun getStores(){
         doAsync {
             val stores = StoreApplication.database.storeDao().getAllStores()
@@ -106,10 +117,14 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
 
     /*
     * */
+
+//    función que se encarga de mostrar u ocultar el floating action button
     override fun hideFab(isVisible: Boolean) {
         if (isVisible) mBinding.fab.show() else mBinding.fab.hide()
     }
 
+    //función que sirve para comunicar el fragment con la activity, se encarga de llamar la
+//    función del adapter para agregar una nueva tienda
     override fun addStore(storeEntity: StoreEntity) {
         mAdapter.add(storeEntity)
     }

@@ -7,8 +7,13 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "StoreEntity")
 //con PrimaryKey, definimos cual es el campo clave en la base de datos, y autogenerate define que
 //este campo sera autoincrementable.
+
+//el parametro photoUrl fue agregado, pero para poder avisar que tenemos que alterar la tabla
+//se deben realizar algunas modificaciones.
+//ver StoreApplication y StoreDatabase
 data class StoreEntity(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                        var name: String,
-                       var phone: String = "",
+                       var phone: String,
                        var website: String = "",
+                       var photoUrl: String,
                        var isFavorite: Boolean = false)

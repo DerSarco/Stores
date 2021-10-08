@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sarco.stores.databinding.ItemStoreBinding
 
 
@@ -46,6 +48,12 @@ class StoreAdapter(private var stores: MutableList<StoreEntity>, private var lis
 //            bindeamos el nombre de la tienda en el elemento de texto.
             binding.tvName.text = store.name
             binding.cbFavorite.isChecked = store.isFavorite
+//            Seteamos la foto guardada en base de datos para mostrarla en la main activity
+            Glide.with(mContext)
+                .load(store.photoUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
+                .into(binding.imgPhoto)
         }
     }
 
@@ -54,9 +62,12 @@ class StoreAdapter(private var stores: MutableList<StoreEntity>, private var lis
 
 //    agregamos una nueva tienda a la lista mutable que tenemos definida en esta clase
     fun add(storeEntity: StoreEntity) {
+    if(!stores.contains(storeEntity)){
         stores.add(storeEntity)
+        notifyItemInserted(stores.size-1);
+
+    }
 //    con esta funcion, aviasmos al adapter que los datos han sufrido cambios y debe actualizarse
-        notifyDataSetChanged()
     }
 
 //    Actualizamos la posición del listado
