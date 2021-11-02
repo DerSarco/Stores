@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_options_item">
+        <item>@string/option_delete</item>
+        <item>@string/option_call</item>
+        <item>@string/option_goToWeb</item>
+    </string-array>
+
+</resources>

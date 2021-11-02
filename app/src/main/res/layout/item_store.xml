@@ -8,7 +8,7 @@ de la tarjeta-->
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="@dimen/common_padding_min"
-    android:layout_marginHorizontal="@dimen/common_padding_min">
+    android:layout_marginStart="@dimen/common_padding_min">
 <!--un constraint layout que se encargará de alinear nuestros elementos
 internos-->
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -11,4 +11,9 @@
     <color name="color_white_t">#CCFFFFFF</color>
 
     <color name="color_link">#0D47A1</color>
+
+    <color name="primaryColor">#009688</color>
+    <color name="primaryDarkColor">#00675b</color>
+    <color name="secondaryColor">#ff1744</color>
+    <color name="secondaryDarkColor">#c4001d</color>
 </resources>

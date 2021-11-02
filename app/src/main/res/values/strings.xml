@@ -1,16 +1,36 @@
 <resources>
-    <string name="app_name">Tiendas</string>
-    <string name="description_image_photo">Imagen de la tienda</string>
-    <string name="description_store_add">Boton para agregar tienda</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hint_name">Nombre de la tienda</string>
-    <string name="helper_required">Requerido</string>
-    <string name="hint_phone">Telefono</string>
-    <string name="hint_website">URL del sitio web</string>
-    <string name="hint_photoUrl">URL de la imagen</string>
-    <string name="edit_store_title_add">Crear Tienda</string>
+    <string name="app_name">Stores</string>
+
+    <string name="description_image_photo">Store Image</string>
+    <string name="description_store_add">Button for add store</string>
+
+    <string name="dialog_delete_title">¿Delete Store?</string>
+    <string name="dialog_delete_button">Delete</string>
+    <string name="dialog_cancel_button">Cancel</string>
+    <string name="dialog_options_title">What would you like to do?</string>
+
     <string name="menu_save">Save</string>
-    <string name="edit_store_message_success">Tienda Agregada correctamente!</string>
-    <string name="arg_id">arg_id</string>
+    <string name="arg_id" translatable="false">arg_id</string>
+
+
+    <string name="edit_store_title_add">Create Store</string>
+    <string name="edit_store_message_success">Store added correctly!</string>
+    <string name="edit_store_message_update_success">Store Updated</string>
+    <string name="edit_store_message_valid">Review required field</string>
+    <string name="edit_store_title_edit">Edit Store</string>
+
+    <string name="main_error_no_website">This store not have a website</string>
+    <string name="main_error_no_resolve">There is not an compatible App.</string>
+
+    <string name="hint_phone">Phone</string>
+    <string name="hint_website">Website URL</string>
+    <string name="hint_photoUrl">Photo URL</string>
+    <string name="hint_name">Store Name</string>
+
+    <string name="helper_required">Required</string>
+
+    <string name="option_delete">Delete</string>
+    <string name="option_call">Call</string>
+    <string name="option_goToWeb">Go to website</string>
+
 </resources>

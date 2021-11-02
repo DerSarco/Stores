@@ -1,8 +1,13 @@
 package com.sarco.stores
 
+import android.content.DialogInterface
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.sarco.stores.databinding.ActivityMainBinding
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
@@ -64,7 +69,9 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
         mAdapter = StoreAdapter(mutableListOf(), this)
 //    grid layout se encarga de manejar los elementos del recyclerview, para este caso, se uso
 //    un grid de 2 columnas
-        mGridLayout = GridLayoutManager(this, 2)
+
+
+        mGridLayout = GridLayoutManager(this, resources.getInteger(R.integer.main_columns))
 //    obtenemos las tiendas que estan almacenadas en nuestra base de datos de room
         getStores()
 //    seteamos nuestro recyclerView con los parametros instanciados arriba
@@ -112,21 +119,69 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
             StoreApplication.database.storeDao().updateStore(storeEntity)
             uiThread{
 //                actualizamos la vista avisando que un dato fue actualizado.
-                mAdapter.update(storeEntity)
+                updateStore(storeEntity)
             }
         }
     }
 
 //    función para eliminar la tienda
     override fun onDeleteStore(storeEntity: StoreEntity) {
-//    con Anko usamor el async para llamar a la bd y eliminar el objeto.
-        doAsync {
-            StoreApplication.database.storeDao().deleteStore(storeEntity)
-            uiThread {
-//                actualizamos la vista una vez el objeto haya sido eliminado.
-                mAdapter.delete(storeEntity)
+        val items = resources.getStringArray(R.array.array_options_item)
+
+    MaterialAlertDialogBuilder(this)
+        .setTitle(R.string.dialog_options_title)
+        .setItems(items) { _, which ->
+            when(which){
+                0 -> confirmDelete(storeEntity)
+
+                1 -> dial(storeEntity.phone)
+
+                2 -> goToWebsite(storeEntity.website)
             }
         }
+        .show()
+}
+
+    private fun confirmDelete(storeEntity: StoreEntity){
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.dialog_delete_title)
+            .setPositiveButton(R.string.dialog_delete_button) { _, _ ->
+                //    con Anko usamor el async para llamar a la bd y eliminar el objeto.
+                doAsync {
+                    StoreApplication.database.storeDao().deleteStore(storeEntity)
+                    uiThread {
+//                actualizamos la vista una vez el objeto haya sido eliminado.
+                        mAdapter.delete(storeEntity)
+                    }
+                }
+            }
+            .setNegativeButton(R.string.dialog_cancel_button, null)
+            .show()
+    }
+
+    private fun dial(phone: String){
+        val callIntent = Intent().apply {
+            action = Intent.ACTION_DIAL
+            data = Uri.parse("tel:$phone")
+        }
+      startIntent(callIntent)
+    }
+
+    private fun goToWebsite(website: String){
+        if(website.isEmpty()){
+            Toast.makeText(this, R.string.main_error_no_website, Toast.LENGTH_LONG).show()
+        }else {
+            val websiteIntent = Intent().apply {
+                action = Intent.ACTION_VIEW
+                data = Uri.parse(website)
+            }
+            startIntent(websiteIntent)
+        }
+    }
+
+    private fun startIntent(intent: Intent){
+        if(intent.resolveActivity(packageManager) != null) startActivity(intent) else
+            Toast.makeText(this, R.string.main_error_no_resolve, Toast.LENGTH_LONG).show()
     }
 
     /*
@@ -144,5 +199,6 @@ class MainActivity : AppCompatActivity(), OnClickListener, MainAux {
     }
 
     override fun updateStore(storeEntity: StoreEntity) {
+        mAdapter.update(storeEntity)
     }
 }
